@@ -1,0 +1,55 @@
+{
+  "name": "platformx-user-service",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "exports": {
+    "import": "./server.js",
+    "require": "./server.cjs"
+  },
+  "scripts": {
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "singleTest": "mocha",
+    "test": "mocha 'test/**/*.js'"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "node-pg-migrate": "^7.5.2",
+    "nodemon": "^3.1.4",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "winston": "^3.14.0",
+    "xml2js": "^0.6.2",
+    "yamljs": "^0.3.0"
+  },
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text-summary"
+    ],
+    "exclude": [
+      "test"
+    ]
+  },
+  "devDependencies": {
+    "@istanbuljs/esm-loader-hook": "^0.2.0",
+    "c8": "^10.1.2",
+    "chai": "*",
+    "mocha": "*",
+    "nyc": "^17.0.0",
+    "sequelize-cli": "^6.6.2",
+    "sinon": "*",
+    "supertest": "*"
+  }
+}

@@ -1,0 +1,16 @@
+{
+    "spec": "test/**/*.js",
+    "exclude": [
+        "node_modules",
+        "coverage",
+        "config",
+        "helper",
+        "logs",
+        "controllers",
+        "repositories",
+        "routes",
+        "services",
+        "data",
+        "domain"
+    ]
+}

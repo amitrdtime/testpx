@@ -1,0 +1,17 @@
+.text-style {
+  font-size: 18px !important;
+  line-height: 23.42px !important;
+  text-align: left;
+}
+
+.display-fields {
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 20px !important;
+}
+
+.display-values {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 35px !important;
+}

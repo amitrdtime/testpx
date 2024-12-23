@@ -1,0 +1,704 @@
+openapi: 3.0.0
+info:
+  title: Metadata API
+  description: API for retrieving various metadata options.
+  version: 1.0.0
+paths:
+  /client-service/clients/metadata/country-regions:
+    get:
+      summary: Get all country regions
+      tags:
+        - Client-Service:Metadata
+      responses:
+        '200':
+          description: A list of country regions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    code:
+                      type: string
+                      maxLength: 10
+                      example: "US"
+                    name:
+                      type: string
+                      maxLength: 50
+                      example: "United States"
+                    isoCode:
+                      type: string
+                      maxLength: 2
+                      example: "US"
+                    isoNumericCode:
+                      type: string
+                      maxLength: 3
+                      example: "840"
+                    addressFormat:
+                      type: string
+                      maxLength: 100
+                      example: "{name}\n{address}\n{city}, {state} {zip}"
+                    contactAddressFormat:
+                      type: string
+                      maxLength: 100
+                      example: "{name}\n{address}\n{city}, {state} {zip}"
+                    stateName:
+                      type: string
+                      maxLength: 50
+                      example: "California"
+                    taxScheme:
+                      type: string
+                      maxLength: 50
+                      example: "VAT"
+                    createdAt:
+                      type: string
+                      format: date-time
+                      example: "2023-01-01T00:00:00Z"
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      example: "2023-01-01T00:00:00Z"
+
+  /client-service/clients/metadata/country/{country}/zipcodes:
+    get:
+      summary: Get ZipCode details for a specific country
+      tags:
+        - Client-Service:Metadata
+      description: Retrieve zip codes configured in Business Central for the specified country.
+      parameters:
+        - in: path
+          name: country
+          required: true
+          description: The country code for which to retrieve zip codes
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ZipCode'
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No zip codes found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /client-service/clients/metadata/format-regions:
+    get:
+      summary: Retrieve all region details
+      tags:
+        - Client-Service:Metadata
+      description: Fetches a list of all regions including ID, Region Name, Language, State, Country Region Code.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    region:
+                      type: string
+                      example: en-CA
+                    language:
+                      type: string
+                      example: 4105
+                    state:
+                      type: string
+                      example: CA
+                    countryRegionCode:
+                      type: string
+                      example: CA
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No regions found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /client-service/clients/metadata/contacts:
+    get:
+      summary: Retrieve all contacts
+      tags:
+        - Client-Service:Metadata
+      description: Fetches a list of all contacts including ID, Name, Number.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: John Doe
+                    number:
+                      type: string
+                      example: '+1234567890'
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No contacts found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /client-service/clients/metadata/languages:
+    get:
+      summary: Retrieve all languages
+      tags:
+        - Client-Service:Metadata
+      description: Fetches a list of all languages including ID, Code, Name, Windows Language ID, and Windows Language Name.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    code:
+                      type: string
+                      example: en
+                    name:
+                      type: string
+                      example: English
+                    windowsLanguageId:
+                      type: string
+                      example: en-US
+                    windowsLanguageName:
+                      type: string
+                      example: English (United States)
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No languages found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /client-service/clients/metadata/lookuptype/{lookuptype}:
+    get:
+      summary: Get options depending on lookup type.
+      tags:
+        - Client-Service:Metadata
+      description: Get options depending on lookup type.
+      parameters:
+        - in: path
+          name: lookuptype
+          required: true
+          schema:
+            type: string
+            description: The type of lookup (e.g., SOW_Status, Job_Type) to retrieve options for.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    type:
+                      type: string
+                      example: SOW_Status
+                    description:
+                      type: string
+                      example: SOW Status
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No Project Posting Group found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  
+  /client-service/clients/metadata/wip:
+    get:
+      summary: Metadata of WIP
+      tags:
+        - Client-Service:Metadata
+      description: Details of work in progress projects.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                      example: "1"
+                    code:
+                      type: string
+                      example: "POC"
+                    description:
+                      type: string
+                      example: "Percentage of Completion"
+                    recognizedCosts:
+                      type: string
+                      example: "Usage (Total Cost)"
+                    recognizedSales:
+                      type: string
+                      example: "Percentage of Completion"
+                    wipCost:
+                      type: boolean
+                      example: true
+                    wipSales:
+                      type: boolean
+                      example: true
+                    valid:
+                      type: boolean
+                      example: true
+                    systemDefined:
+                      type: boolean
+                      example: true
+                    createdAt:
+                      type: string
+                      format: date-time
+                      example: "2023-01-01T00:00:00Z"
+                    createdBy:
+                      type: string
+                      example: "UserName"
+                    modifiedBy:
+                      type: string
+                      example: "UserName"
+                    updatedAt:
+                      type: string
+                      format: date-time
+                      example: "2023-01-01T00:00:00Z"
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+  
+  /client-service/clients/metadata/resources:
+    get:
+      summary: Get Resources for lookups like Project manager, Person responsable.
+      tags:
+        - Client-Service:Metadata
+      description: Returns a dropdown list of Resource name and code number.
+      responses:
+        '200':
+          description: Successful response with dropdown menu.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      description: Unique number representing resource.
+                    resourceNo:
+                      type: number
+                      description: Unique number representing resource.
+                    resourceName:
+                      type: string
+                      description: Name of the resource.        
+                example:          
+                - id: 1
+                  resourceNo: "INNR000001"
+                  resourceName: "Chaitra"
+                - id: 2
+                  resourceNo: "INNR000002"
+                  resourceName: "Asha"
+
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No Resourcesfound
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /client-service/clients/metadata/project-posting-group:
+    get:
+      summary: Get project posting group
+      tags:
+        - Client-Service:Metadata
+      description: Get Project Posting Group options.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    code:
+                      type: string
+                      example: 'FIXBIDJOBPOSTING'
+                    description:
+                      type: string
+                      example: 'FIX BID JOB POSTING'
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No Project Posting Group found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  
+  /client-service/clients/metadata/currencies:
+    get:
+      summary: Get Currencies
+      tags:
+        - Client-Service:Metadata
+      description: Get Currency options.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: number
+                      example: 1
+                    code:
+                      type: string
+                      example: 'USD'
+                    description:
+                      type: string
+                      example: 'US Dollers'
+        '400':
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '401':
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '404':
+          description: No Currencies found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /client-service/clients/metadata/locations:
+    get:
+      summary: Get Location Code details
+      tags:
+        - Client-Service:Metadata
+      description: Get dropdown options for Location Codes.
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    name:
+                      type: string
+                      example: 'Texas'
+                    code:
+                      type: string
+                      example: 'TX'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+components:
+  schemas:
+    ZipCode:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        code:
+          type: number
+        city:
+          type: string
+        state:
+          type: string
+          example: "CA"
+        countryRegionCode:
+          type: string
+          example: "US"
+        county:
+          type: string
+        timeZone:
+          type: string

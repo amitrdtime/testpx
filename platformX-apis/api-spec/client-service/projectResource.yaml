@@ -1,0 +1,439 @@
+openapi: 3.0.0
+info:
+  title: Client-Service: Project Resources API
+  description: API for managing project resources under SOW and project number
+  version: 1.0.0
+paths:
+  /client-service/client/{clientno}/sow/{sowno}/project/{projectno}/resources:
+    get:
+      summary: Retrieve project resources by SOW and project number
+      tags:
+        - "Client-Service:Project Resources API"
+      description: Get the list of resources for a specific project under an SOW. Useful for understanding resource allocation and financial details.
+      parameters:
+        - name: clientno
+          in: path
+          required: true
+          description: The client number associated with the project.
+          schema:
+            type: string
+        - name: sowno
+          in: path
+          required: true
+          description: The SOW number associated with the project.
+          schema:
+            type: string
+        - name: projectno
+          in: path
+          required: true
+          description: The project number for which resources are being queried.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful retrieval of project resources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Resource'
+        '400':
+          description: Bad request due to invalid parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid SOW number or project number"
+        '401':
+          description: Unauthorized access to the endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized access"
+        '404':
+          description: Resources not found for the specified SOW and project number
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No resources found for the given SOW and project number"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred"
+
+  /client-service/client/{clientno}/sow/{sowno}/project/{projectno}/resource/{resourceNo}:
+    put:
+      summary: Update an existing resource for a specific project under an SOW
+      tags:
+        - "Client-Service:Project Resources API"
+      description: Modify details of an existing resource for a project, such as quantity, cost, or planned delivery date.
+      parameters:
+        - name: clientno
+          in: path
+          required: true
+          description: The client number associated with the project.
+          schema:
+            type: string
+        - name: sowno
+          in: path
+          required: true
+          description: The SOW number associated with the project.
+          schema:
+            type: string
+        - name: projectno
+          in: path
+          required: true
+          description: The project number associated with the resource.
+          schema:
+            type: string
+        - name: resourceNo
+          in: path
+          required: true
+          description: The resource number that needs to be updated.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '200':
+          description: Resource successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Resource successfully updated"
+                  resource:
+                    $ref: '#/components/schemas/Resource'
+        '400':
+          description: Invalid request parameters or body
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid request body"
+        '401':
+          description: Unauthorized access to the endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized access"
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Resource not found"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred"
+
+  /client-service/client/{clientno}/sow/{sowno}/project/{projectno}/resource:
+    post:
+      summary: Add a new resource to a specific project under an SOW
+      tags:
+        - "Client-Service:Project Resources API"
+      description: Create a new resource for a project. This can include labor, materials, or other resource types allocated to the project.
+      parameters:
+        - name: clientno
+          in: path
+          required: true
+          description: The client number associated with the project.
+          schema:
+            type: string
+        - name: sowno
+          in: path
+          required: true
+          description: The SOW number associated with the project.
+          schema:
+            type: string
+        - name: projectno
+          in: path
+          required: true
+          description: The project number for which resources are being added.
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Resource'
+      responses:
+        '201':
+          description: Resource successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Resource successfully created"
+                  resource:
+                    $ref: '#/components/schemas/Resource'
+        '400':
+          description: Invalid input data provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid request body"
+        '401':
+          description: Unauthorized access to the endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized access"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred"
+
+
+  
+  /client-service/client/{clientno}/sow/{sowno}/project/{projectno}/resource/{resourceno}:
+    get:
+      summary: Get an existing resource for a specific project under an SOW
+      tags:
+        - [Client-Service:Project Resources API]
+      description: Retrieve details of an existing resource for a project.
+      parameters:
+        - name: clientno
+          in: path
+          required: true
+          description: The client number associated with the project.
+          schema:
+            type: string
+        - name: sowno
+          in: path
+          required: true
+          description: The SOW number associated with the project.
+          schema:
+            type: string
+        - name: projectno
+          in: path
+          required: true
+          description: The project number associated with the resource.
+          schema:
+            type: string
+        - name: resourceno
+          in: path
+          required: true
+          description: The resource number that needs to be retrieved.
+          schema:
+            type: string
+      responses:
+        200:
+          description: Resource successfully retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Resource successfully retrieved"
+                  resource:
+                    $ref: '#/components/schemas/Resource'
+        400:
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Invalid request parameters"
+        401:
+          description: Unauthorized access to the endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Unauthorized access"
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Resource not found"
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "An unexpected error occurred"
+ 
+
+
+components:
+  schemas:
+    Resource:
+      type: object
+      properties:
+        clientno:
+          type: string
+          description: The client number associated with the resource.
+          example: "Client-01"
+        projectno:
+          type: string
+          description: The project number associated with the resource.
+          example: "SOW01-01"
+        resourceno:
+          type: string
+          description: Unique identifier for the resource.
+          example: "INN01"
+        name:
+          type: string
+          description: Name of the resource person or entity.
+          example: "Rajesh A"
+        lineType:
+          type: string
+          description: The type of line item (e.g., Material, Labor).
+          example: "Material"
+        planningDate:
+          type: string
+          format: date
+          description: The planned date for resource allocation.
+          example: "2024-09-01"
+        plannedDeliveryDate:
+          type: string
+          format: date
+          description: The planned delivery date of the resource.
+          example: "2024-09-15"
+        documentNo:
+          type: string
+          description: Document number associated with the resource.
+          example: "DOC123456"
+        type:
+          type: string
+          description: The type of resource (e.g., Resource, Service).
+          example: "Resource"
+        no:
+          type: string
+          description: Unique identifier for the resource.
+          example: "RS12345"
+        description:
+          type: string
+          description: Description of the resource allocation.
+          example: "Resource allocation for Task PT12345"
+        quantity:
+          type: number
+          description: Total quantity of the resource.
+          example: 10
+        qtyToAssemble:
+          type: number
+          description: Quantity of the resource to assemble.
+          example: 5
+        unitCost:
+          type: number
+          description: Cost per unit of the resource.
+          example: 100
+        totalCost:
+          type: number
+          description: Total cost for the resource.
+          example: 500
+        unitPrice:
+          type: number
+          description: Price per unit of the resource.
+          example: 120
+        lineAmount:
+          type: number
+          description: Total amount for the resource line item.
+          example: 600
+        qtyToTransferToJournal:
+          type: number
+          description: Quantity of the resource to transfer to the journal.
+          example: 3
+        invoicedAmount:
+          type: number
+          description: Amount invoiced for the resource.
+          example: 360
+      required:
+        - clientno
+        - projectno
+        - resourceno
+        - name
+        - lineType
+        - planningDate
+        - plannedDeliveryDate
+        - documentNo
+        - type
+        - quantity
+        - qtyToAssemble
+        - unitCost
+        - totalCost
+        - unitPrice
+        - lineAmount
+        - qtyToTransferToJournal
+        - invoicedAmount
+
+ 

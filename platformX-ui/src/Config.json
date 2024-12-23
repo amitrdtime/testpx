@@ -1,0 +1,30 @@
+{
+  "environment": "dev",
+  "active_directory_env": "local",
+  "azureApiUrl": "https://innovertimesheet.azurewebsites.net",
+  "max_total_hours": 8,
+  "max_project_hours": 9,
+  "local": {
+    "dynamoDB_Prefix": "local",
+    "apiUrl": "http://localhost:1000",
+    "key": "allmydonutsareonfire"
+  },
+  "dev": {
+    "dynamoDB_Prefix": "dev_",
+    "apiUrl": "http://localhost:1000",
+    "key": "allmydonutsareonfire"
+  },
+  "qa": {
+    "dynamoDB_Prefix": "qa_",
+    "apiUrl": "https://4j1pvhmuai.execute-api.us-east-2.amazonaws.com/qa/",
+    "key": "toBeDecided"
+  },
+  "acc": {
+    "dynamoDB_Prefix": "acc",
+    "apiUrl": "https://h5fzlk8pv4.execute-api.us-east-2.amazonaws.com/acc/",
+    "key": "toBeDecided"
+  },
+  "adminUsers": [
+    "rstrauss@bulkmatictransport.com"
+  ]
+}

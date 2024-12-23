@@ -1,0 +1,820 @@
+openapi: 3.0.0
+info:
+  title: Client-Service:Statements of Work (SOW) API
+  description: API for managing Statements of Work (SOW)
+  version: 1.0.0
+paths:
+  /client-service/client/{clientid}/sow:
+    post:
+      summary: Create a new Statement of Work (SOW)
+      tags:
+        - Client-Service:Statement of Work (SOW)
+      parameters:
+        - name: clientid
+          in: path
+          required: true
+          description: Client Id 
+          schema:
+            type: string 
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Description of the SOW
+                  example: "This is a sample SOW description."
+                customerNo:
+                  type: string
+                  description: Identifier for the customer
+                jobTypeId:
+                  type: number
+                  description: Job type ID
+                projectManagerId:
+                  type: number
+                  description: Project manager ID
+                sowStatusId:
+                  type: number
+                  description: SOW status ID 
+                projectPostingGroupId:
+                  type: number
+                  description: Project posting group ID 
+                locationId:
+                  type: number
+                  description: Location ID
+                startingDate:
+                  type: string
+                  format: date
+                endingDate:
+                  type: string
+                  format: date
+                currencyId:
+                  type: number
+                  description: Currency ID 
+                invoiceCurrencyId:
+                  type: number
+                  description: Invoice currency ID 
+                exchCalculationCostId:
+                  type: number
+                  description: Exchange calculation cost ID
+                exchCalculationPriceId:
+                  type: number
+                  description: Exchange calculation price ID
+                blockedId:
+                  type: number
+                  description: Blocked ID
+                createdBy:
+                  type: string
+                  description: User who created the SOW
+              required:
+                - description
+                - customerName
+                - customerId
+                - createdBy
+      responses:
+        "201":
+          description: SOW successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Unique identifier for the SOW
+                    example: 1
+                  sowNo:
+                    type: string
+                    description: Unique identifier of the created SOW
+                    example: "SOW12345"
+                  description:
+                    type: string
+                    example: "This is a sample SOW description."
+                  customerNo:
+                    type: string
+                    example: "CUST-12345"
+                  customerName:
+                    type: string
+                    example: "Acme Corporation"
+                  address:
+                    type: string
+                    example: "123 Elm Street"
+                  address2:
+                    type: string
+                    example: "Suite 456"
+                  city:
+                    type: string
+                    example: "Metropolis"
+                  cityToState:
+                    type: string
+                    example: "NY"
+                  zipCode:
+                    type: string
+                    example: "12345"
+                  countryRegion:
+                    type: string
+                    example: "USA"
+                  contactNo:
+                    type: string
+                    example: "+1234567890"
+                  phoneNo:
+                    type: string
+                    example: "+0987654321"
+                  mobileNo:
+                    type: string
+                    example: "+1122334455"
+                  email:
+                    type: string
+                    example: "contact@acme.com"
+                  contact:
+                    type: string
+                    example: "Jane Doe"
+                  personResponsible:
+                    type: string
+                    example: "John Doe"
+                  jobType:
+                    type: string
+                    example: "Fixed Bid"
+                  projectManager:
+                    type: string
+                    example: "Manager A"
+                  sowStatus:
+                    type: string
+                    example: "Open"
+                  projectPosting:
+                    type: string
+                    example: "Posted"
+                  locationCode:
+                    type: string
+                    example: "LOC-001"
+                  startingDate:
+                    type: string
+                    format: date
+                    example: "2024-09-01"
+                  endingDate:
+                    type: string
+                    format: date
+                    example: "2024-12-31"
+                  currencyCode:
+                    type: string
+                    example: "USD"
+                  invoiceCurrencyCode:
+                    type: string
+                    example: "USD"
+                  exchCalculationCost:
+                    type: string
+                    example: "Rate A"
+                  exchCalculationPrice:
+                    type: string
+                    example: "Rate B"
+                  blocked:
+                    type: string
+                    example: "Posting"
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+
+  /client-service/client/{clientid}/sow/{sowid}:
+    patch:
+      summary: Update an existing Statement of Work (SOW)
+      tags:
+        - Client-Service:Statement of Work (SOW)
+      parameters:
+        - name: sowid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the SOW to update
+        - name: clientid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Unique identifier of the SOW to update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Description of the SOW
+                  example: "This is an updated SOW description."
+                startingDate:
+                  type: string
+                  format: date
+                  description: Starting date of the SOW
+                  example: "2024-09-01"
+                endingDate:
+                  type: string
+                  format: date
+                  description: Ending date of the SOW
+                  example: "2024-12-31"
+                customerId:
+                  type: number
+                  description: Unique identifier for the customer
+                  example: "1"
+                personResponsibleId:
+                  type: number
+                  description: ID of the person responsible for the SOW
+                  example: "1"
+                jobTypeId:
+                  type: number
+                  description: Job type ID
+                  example: "01"
+                projectManagerId:
+                  type: number
+                  description: Project manager ID
+                  example: "01"
+                sowStatusId:
+                  type: number
+                  description: SOW status ID
+                  example: "1"
+                projectPostingGroupId:
+                  type: number
+                  description: Project posting group ID
+                  example: "1"
+                locationId:
+                  type: number
+                  description: Location ID
+                  example: "01"
+                currencyId:
+                  type: number
+                  description: Currency ID
+                  example: "1"
+                invoiceCurrencyId:
+                  type: number
+                  description: Invoice currency ID
+                  example: "01"
+                exchCalculationCostId:
+                  type: number
+                  description: Exchange calculation cost ID
+                  example: "1"
+                exchCalculationPriceId:
+                  type: number
+                  description: Exchange calculation price ID
+                  example: "1"
+                blockedId:
+                  type: number
+                  description: Blocked ID
+                  example: "1"
+                modifiedBy:
+                  type: string
+                  description: User who last modified the SOW
+                  example: "user@example.com"
+              required:
+                - description
+                - customerId
+                - modifiedBy
+      responses:
+        "200":
+          description: SOW successfully updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Unique identifier for the SOW
+                    example: 1
+                  sowNo:
+                    type: string
+                    description: Unique identifier of the created SOW
+                    example: "sow-12345"
+                  description:
+                    type: string
+                    example: "This is a sample SOW description."
+                  customerNo:
+                    type: string
+                    example: "CUST-12345"
+                  customerName:
+                    type: string
+                    example: "Acme Corporation"
+                  address:
+                    type: string
+                    example: "123 Elm Street"
+                  address2:
+                    type: string
+                    example: "Suite 456"
+                  city:
+                    type: string
+                    example: "Metropolis"
+                  cityToState:
+                    type: string
+                    example: "NY"
+                  zipCode:
+                    type: string
+                    example: "12345"
+                  countryRegion:
+                    type: string
+                    example: "USA"
+                  contactNo:
+                    type: string
+                    example: "+1234567890"
+                  phoneNo:
+                    type: string
+                    example: "+0987654321"
+                  mobileNo:
+                    type: string
+                    example: "+1122334455"
+                  email:
+                    type: string
+                    example: "contact@acme.com"
+                  contact:
+                    type: string
+                    example: "Jane Doe"
+                  personResponsible:
+                    type: string
+                    example: "John Doe"
+                  jobType:
+                    type: string
+                    example: "Fixed Bid"
+                  projectManager:
+                    type: string
+                    example: "Manager A"
+                  sowStatus:
+                    type: string
+                    example: "Open"
+                  projectPosting:
+                    type: string
+                    example: "Posted"
+                  locationCode:
+                    type: string
+                    example: "LOC-001"
+                  startingDate:
+                    type: string
+                    format: date
+                    example: "2024-09-01"
+                  endingDate:
+                    type: string
+                    format: date
+                    example: "2024-12-31"
+                  currencyCode:
+                    type: string
+                    example: "USD"
+                  invoiceCurrencyCode:
+                    type: string
+                    example: "USD"
+
+    get:
+      summary: Get a SOW details by number
+      tags:
+        - "Client-Service:Statement of Work (SOW)"
+      description: Retrieve the details of a specific SOW using their number.
+      parameters:
+        - name: sowid
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: clientid
+          in: path
+          required: true
+          description: The number of the SOW
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    description: Unique identifier for the SOW
+                  sowNo:
+                    type: string
+                  description:
+                    type: string
+                  customerNo:
+                    type: string
+                  customerName:
+                    type: string
+                  address:
+                    type: string
+                  address2:
+                    type: string
+                  city:
+                    type: string
+                  cityToState:
+                    type: string
+                  zipCode:
+                    type: string
+                  countryRegion:
+                    type: string
+                  contactNo:
+                    type: string
+                  phoneNo:
+                    type: string
+                  mobileNo:
+                    type: string
+                  email:
+                    type: string
+                  contact:
+                    type: string
+                  personResponsible:
+                    type: string
+                  jobType:
+                    type: string
+                  projectManager:
+                    type: string
+                  sowStatus:
+                    type: string
+                  projectPosting:
+                    type: string
+                  locationCode:
+                    type: string
+                  startingDate:
+                    type: string
+                    format: date
+                  endingDate:
+                    type: string
+                    format: date
+                  currencyCode:
+                    type: string
+                  invoiceCurrencyCode:
+                    type: string
+                  exchCalculationCost:
+                    type: string
+                  exchCalculationPrice:
+                    type: string
+                  blocked:
+                    type: string
+                  customerId:
+                    type: number
+                    description: Unique identifier for the customer
+                  personResponsibleId:
+                    type: number
+                    description: ID of the person responsible for the SOW
+                  jobTypeId:
+                    type: number
+                    description: Job type ID
+                  projectManagerId:
+                    type: number
+                    description: Project manager ID
+                  sowStatusId:
+                    type: number
+                    description: SOW status ID
+                  projectPostingGroupId:
+                    type: number
+                    description: Project posting group ID
+                  locationId:
+                    type: number
+                    description: Location ID
+                  currencyId:
+                    type: number
+                    description: Currency ID
+                  invoiceCurrencyId:
+                    type: number
+                    description: Invoice currency ID
+                  exchCalculationCostId:
+                    type: number
+                    description: Exchange calculation cost ID
+                  exchCalculationPriceId:
+                    type: number
+                    description: Exchange calculation price ID
+                  blockedId:
+                    type: number
+                    description: Blocked ID
+                  createdBy:
+                    type: string
+                    description: User who created the SOW
+                  createdAt:
+                    type: string
+                    format: date-time
+                    description: The date and time when the SOW was created
+                  modifiedBy:
+                    type: string
+                    description: User who last modified the SOW
+                  updatedAt:
+                    type: string
+                    format: date-time
+                    description: The date and time when the SOW was last updated
+                example:
+                  id: 1
+                  sowNo: "SOW12345"
+                  description: "This is a sample SOW description."
+                  customerNo: "CUST001"
+                  customerName: "Acme Corporation"
+                  address: "123 Main St"
+                  address2: "Apt 4B"
+                  city: "New York"
+                  cityToState: "NY"
+                  zipCode: "10001"
+                  countryRegion: "USA"
+                  contactNo: "555-1234"
+                  phoneNo: "555-5678"
+                  mobileNo: "555-8765"
+                  email: "john.doe@example.com"
+                  contact: "John Doe"
+                  personResponsible: "Jane Smith"
+                  jobType: "Fixed Bid"
+                  projectManager: "Manager A"
+                  sowStatus: "Open"
+                  projectPosting: "Project Posting 1"
+                  locationCode: "LOC01"
+                  startingDate: "2024-09-01"
+                  endingDate: "2024-12-31"
+                  currencyCode: "USD"
+                  invoiceCurrencyCode: "USD"
+                  exchCalculationCost: "1.0"
+                  exchCalculationPrice: "1.0"
+                  blocked: "All"
+        400:
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: Client not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+   
+  /client-service/client/{clientid}/sows:
+    get:
+      summary: Get SOWs details by Client No and search term with sorting and pagination
+      tags:
+        - "Client-Service:Statement of Work (SOW)"
+      description: Retrieve SOWs details by Client No with search, sorting, and pagination.
+      parameters:
+        - name: clientid
+          in: path
+          required: true
+          description: Client Id
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Search term to filter SOWs
+          schema:
+            type: string
+        - name: sortBy
+          in: query
+          description: Field to sort by
+          schema:
+            type: string
+        - name: order
+          in: query
+          description: Order of sorting, either ascending or descending
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+        - name: page
+          in: query
+          description: Page number for pagination (starting at 1).
+          schema:
+            type: integer
+          example: 1
+        - name: pageSize
+          in: query
+          description: Number of items per page (default is 0 if not specified, will get all the records ).
+          schema:
+            type: integer
+          example: 10
+      responses:
+        200:
+          description: Successful response with pagination
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pageNumber:
+                    type: integer
+                    description: Current page number
+                    example: 1
+                  pageSize:
+                    type: integer
+                    description: Number of items per page
+                    example: 10
+                  totalRecords:
+                    type: integer
+                    description: Total number of records
+                    example: 2
+                  totalPages:
+                    type: integer
+                    description: Total number of pages
+                    example: 1
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                          description: Unique identifier for the SOW
+                          example: 1
+                        sowNo:
+                          type: string
+                          description: Unique identifier for the SOW
+                          example: "SOW007"
+                        description:
+                          type: string
+                          description: Description of the SOW
+                          example: "This is a sample SOW description."
+                        customerNo:
+                          type: string
+                          description: Identifier for the customer
+                        customerName:
+                          type: string
+                          description: Name of the customer
+                          example: "Acme Corporation"
+                        address:
+                          type: string
+                        address2:
+                          type: string
+                        city:
+                          type: string
+                        cityToState:
+                          type: string
+                        zipCode:
+                          type: string
+                        countryRegion:
+                          type: string
+                        contactNo:
+                          type: string
+                        phoneNo:
+                          type: string
+                        mobileNo:
+                          type: string
+                        email:
+                          type: string
+                        contact:
+                          type: string
+                        personResponsible:
+                          type: string
+                          description: Person responsible for the SOW
+                          example: "John Doe"
+                        jobType:
+                          type: string
+                          description: Type of the job
+                          enum:
+                            - "Fixed Bid"
+                            - "Time and Material"
+                            - "Internal"
+                          example: "Fixed Bid"
+                        projectManager:
+                          type: string
+                          description: Project Manager assigned to the SOW
+                          enum:
+                            - "Manager A"
+                            - "Manager B"
+                            - "Manager C"
+                          example: "Manager A"
+                        sowStatus:
+                          type: string
+                          description: Status of the SOW
+                          enum:
+                            - "Planning"
+                            - "Quote"
+                            - "Open"
+                            - "Completed"
+                          example: "Open"
+                        projectPosting:
+                          type: string
+                        locationCode:
+                          type: string
+                        startingDate:
+                          type: string
+                          format: date
+                        endingDate:
+                          type: string
+                          format: date
+                        currencyCode:
+                          type: string
+                        invoiceCurrencyCode:
+                          type: string
+                        exchCalculationCost:
+                          type: string
+                        exchCalculationPrice:
+                          type: string
+                        blocked:
+                          type: string
+                          description: Options
+                          enum:
+                            - "Posting"
+                            - "All"
+                          example: "All"
+                example:
+                  pageNumber: 1
+                  pageSize: 10
+                  totalRecords: 2
+                  totalPages: 1
+                  data:
+                    - id: 1
+                      sowNo: "SOW12345"
+                      description: "This is a sample SOW description."
+                      customerNo: "C00001"
+                      customerName: "Acme Corporation"
+                      address: "123 Main St"
+                      address2: "Apt 4B"
+                      city: "New York"
+                      cityToState: "NY"
+                      zipCode: "10001"
+                      countryRegion: "USA"
+                      contactNo: "555-1234"
+                      phoneNo: "555-5678"
+                      mobileNo: "555-8765"
+                      email: "john.doe@example.com"
+                      contact: "John Doe"
+                      personResponsible: "Jane Smith"
+                      jobType: "Fixed Bid"
+                      jobTypeId: 1
+                      projectManager: "Manager A"
+                      projectManagerId: "p1"
+                      sowStatus: "Open"
+                      sowStatusId: 1
+                      projectPosting: "Project Posting 1"
+                      projectPostingGroupId: 1
+                      locationCode: "LOC01"
+                      locationId: 1
+                      startingDate: "2024-09-01"
+                      endingDate: "2024-12-31"
+                      currencyCode: "USD"
+                      currencyId: 1
+                      invoiceCurrencyCode: "USD"
+                      invoiceCurrencyId: 1
+                      exchCalculationCost: "1.0"
+                      exchCalculationCostId: 1
+                      exchCalculationPrice: "1.0"
+                      exchCalculationPriceId: 1
+                      blocked: "All"
+                      blockedId: 1
+                      createdBy: "admin"
+                      createdAt: "2024-08-01T10:00:00Z"
+                      modifiedBy: "admin"
+                      updatedAt: "2024-09-20T14:00:00Z"          
+        400:
+          description: Bad request. Please check the request parameters.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        401:
+          description: Unauthorized access
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        404:
+          description: No SOWs found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        500:
+          description: Internal server error
+          content:
+            application/json:
+            schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+

@@ -1,0 +1,43 @@
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+  overflow-x: hidden;
+  background-color: #f4f4f4;
+}
+
+.overlay-active {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+.MuiGrid-item {
+  padding-top: 20px !important;
+  border-bottom: 1px solid #dfeaed !important;
+}
+.MuiBox-root {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+.Mui-expanded {
+  margin: 15px 0px 5px 0px !important;
+}
